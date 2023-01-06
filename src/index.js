@@ -1,13 +1,14 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
-import App from './App';
+import ClassComponents from './ClassComponents';
+import FunctionComponents from './FunctionalComponents';
 import reportWebVitals from './reportWebVitals';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <App />
+    <FunctionComponents title = 'The Github Cards App'/>
   </React.StrictMode>
 );
 
