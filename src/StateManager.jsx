@@ -15,7 +15,6 @@ const StateManager = () => {
     try {
       e.preventDefault();
       const response = await getAPI(userName);
-      console.dir(response);
       a.onSubmit(response.data);
       setError(null);
       setUserName("");
