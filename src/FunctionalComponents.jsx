@@ -1,8 +1,7 @@
-import logo from './logo.svg';
-import './App.css';
-import React, { useState } from 'react';
-//import axios from 'axios';
-import useStateManager from './StateManager';
+import "./App.css";
+import React, { useState } from "react";
+import useStateManager from "./StateManager";
+import StateManager from "./StateManager";
 
 //Error Handling - class / invalid input, network problems
 //Convert Class to Function
@@ -12,62 +11,62 @@ import useStateManager from './StateManager';
 
 //Form
 function Form(props) {
-  const stateManager = useStateManager(props)
-      return(
-        <div>
-          <form onSubmit={stateManager.onClickEvent}>
-            <input 
-            type="text" 
-            value={userName}
-            onChange = {(event) => changeEvent(event)}
-            placeholder='Github Username' 
-            required
-            />
-            <button>Add Card</button>
-          </form>
-        </div>
-      )
+  const { onClickEvent, changeEvent, userName } = useStateManager();
+  return (
+    <div>
+      <form onSubmit={(event) => onClickEvent(event, props)}>
+        <input
+          type="text"
+          value={userName}
+          onChange={(event) => changeEvent(event)}
+          placeholder="Github Username"
+          required
+        />
+        <button>Add Card</button>
+      </form>
+    </div>
+  );
 }
-
 
 //List of Cards
 function CardList(props) {
-    let data = Object.values(props)
-    return(
+  let data = Object.values(props);
+  return (
     <div>
-    {data[0].map(profile => <Card key={profile.id } {...profile}/>)}
+      {data[0].map((profile) => (
+        <Card key={profile.id} {...profile} />
+      ))}
     </div>
-    );
+  );
 }
 
 //Card
 function Card(props) {
-    return(
-        <div className='github-profile'>
-         <img src={props.avatar_url} />
-         <div className='info'>
-           <div className='name'>{props.name}</div>
-           <div className='company'>{props.company}</div>
-         </div>
-       </div>
-    );
+  return (
+    <div className="github-profile">
+      <img src={props.avatar_url} />
+      <div className="info">
+        <div className="name">{props.name}</div>
+        <div className="company">{props.company}</div>
+      </div>
+    </div>
+  );
 }
 
-function App(props){
-const [profiles, setprofiles] = useState([]);
-  
- const addNewProfile = (profileData) => {
-    setprofiles([...profiles, {...profileData}])
-    }
+function App(props) {
+  const [profiles, setprofiles] = useState([]);
 
-    return(
-      <div className='header'>
-        {props.title}
-        <Form onSubmit={addNewProfile} />
-        <CardList profiles={profiles}/>
-      </div>
-    )
-  }
+  const addNewProfile = (profileData) => {
+    setprofiles([...profiles, { ...profileData }]);
+  };
 
+  return (
+    <div className="header">
+      {props.title}
+      <Form onSubmit={addNewProfile} />
+      <CardList profiles={profiles} />
+    </div>
+  );
+}
 
 export default App;
